@@ -31,7 +31,7 @@ class AudioPlayerNode(Node):
         # ffplay: supports many formats
         self.player_cmd = os.environ.get(
             'AUDIO_PLAYER',
-            'aplay'
+            'ffplay'
         )
 
         self.get_logger().info('Audio Player Node started')
