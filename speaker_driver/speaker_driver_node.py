@@ -65,14 +65,17 @@ class AudioPlayerNode(Node):
 
         try:
             subprocess.Popen(
-            [
-                self.player_cmd,
-                "-nodisp",
-                "-autoexit",
-                "-loglevel", "quiet",
-                file_path
-            ]
+                [
+                    "ffplay",
+                    "-nodisp",
+                    "-autoexit",
+                    "-loglevel", "quiet",
+                    "-f", "alsa",
+                    "-i", "plughw:1,0",
+                    file_path
+                ]
             )
+
         except Exception as e:
             self.get_logger().error(f'Failed to play audio: {e}')
 
