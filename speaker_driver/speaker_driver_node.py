@@ -26,14 +26,6 @@ class AudioPlayerNode(Node):
             '/audio'
         )
 
-        # Command used to play audio
-        # aplay: WAV only
-        # ffplay: supports many formats
-        self.player_cmd = os.environ.get(
-            'AUDIO_PLAYER',
-            'ffplay'
-        )
-
         self.get_logger().info('Audio Player Node started')
 
     def play_audio_callback(self, msg: String):
@@ -66,13 +58,11 @@ class AudioPlayerNode(Node):
         try:
             subprocess.Popen(
                 [
-                    "ffplay",
-                    "-nodisp",
-                    "-autoexit",
+                    "ffmpeg",
                     "-loglevel", "quiet",
+                    "-i", file_path,
                     "-f", "alsa",
-                    "-i", "plughw:1,0",
-                    file_path
+                    "plughw:1,0"
                 ]
             )
 
